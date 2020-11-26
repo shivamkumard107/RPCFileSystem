@@ -1,10 +1,17 @@
 # PyDFS
 
+# Demo:
+ 1. File server registration with KDC 
+    ![demo](https://www.youtube.com/watch?v=9eRtdPKmHqA)
+ 2. Distributed Node Registration and access to file server
+    ![demo](https://www.youtube.com/watch?v=-n4DVfnBX3o)
+ 3. File block replication
+    ![demo](https://www.youtube.com/watch?v=Phd4fjswFX4)
 # Components:
  1. **Master :** Will contain metadata
  2. **fileServer :** Will contain actual file data
  3. **Client :** Interacts with 1 and 2 to do stuff
-   
+
 ## Master:
 Master will contain metadata. Which is: file name, blocks associated with it and address of those blocks. Data structures wise, it would look something like this.
 ```
