@@ -2,7 +2,7 @@
 
 # Components:
  1. **Master :** Will contain metadata
- 2. **Minion :** Will contain actual file data
+ 2. **fileServer :** Will contain actual file data
  3. **Client :** Interacts with 1 and 2 to do stuff
    
 ## Master:
@@ -11,12 +11,12 @@ Master will contain metadata. Which is: file name, blocks associated with it and
 example file: /etc/passwd
 
     file_block = {"/etc/passwd": ["block0", "block1"]}
-    block_minion = {"block0": [minion1 ,minion2],
-                    "block1": [minion2, minion3]}
-    minions = {
-      "minion1": (host1, portX),
-      "minion2": (host2, portY),
-      "minion3": (host3, portZ)
+    block_fileServer = {"block0": [fileServer1 ,fileServer2],
+                    "block1": [fileServer2, fileServer3]}
+    fileServers = {
+      "fileServer1": (host1, portX),
+      "fileServer2": (host2, portY),
+      "fileServer3": (host3, portZ)
     }
 ```
 
@@ -40,32 +40,32 @@ methods that master will expose will look like:
               {"block_id": "block2", "block_addr: [(host2,portY),...]"}
            ]
 ```
-## Minion:
-Minions are relatively simple in operations and implementation. Given a block address either they can read or write and forward same block to next minion.
+## fileServer:
+fileServers are relatively simple in operations and implementation. Given a block address either they can read or write and forward same block to next fileServer.
 
 methods:
 ```
-  def put(block_id, data, minions) => writes the block on local disk and forward to minions
+  def put(block_id, data, fileServers) => writes the block on local disk and forward to fileServers
 
   def get(block_id) => reads the block and returns the contents
 
-  def forward(block_id, data, minions) => calls put() on next minion with remaining minions as forward list
+  def forward(block_id, data, fileServers) => calls put() on next fileServer with remaining fileServers as forward list
 ```
 
 ## Client:
-Client will interact with both minions and master. Given a get or put operation, it will first contact master to query metadata and then pertaining minions to perform data operation.
+Client will interact with both fileServers and master. Given a get or put operation, it will first contact master to query metadata and then pertaining fileServers to perform data operation.
 
 ```
   def get(file):
-  contacts master to get metadata first and then calls appropriate minions to read blocks
+  contacts master to get metadata first and then calls appropriate fileServers to read blocks
 
   def put(input_file, file):
-  contacts master to allocate blocks for `file` and then reads input file in blocks and calls minions to write the blocks
+  contacts master to allocate blocks for `file` and then reads input file in blocks and calls fileServers to write the blocks
 ```
 
 -----
 
 ## Misc:
- 1. Minions will be anticipating PORT and DATA_DIR as arguments. Blocks will be stored under DATA_DIR.
- 2. Block size, replication factors, list of minions are hard coded in master.
+ 1. fileServers will be anticipating PORT and DATA_DIR as arguments. Blocks will be stored under DATA_DIR.
+ 2. Block size, replication factors, list of fileServers are hard coded in master.
  3. We are not storing metadata on disk.
