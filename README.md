@@ -1,12 +1,9 @@
 # PyDFS
 
 # Demo:
- 1. File server registration with KDC 
-    ![demo](https://www.youtube.com/watch?v=9eRtdPKmHqA)
- 2. Distributed Node Registration and access to file server
-    ![demo](https://www.youtube.com/watch?v=-n4DVfnBX3o)
- 3. File block replication
-    ![demo](https://www.youtube.com/watch?v=Phd4fjswFX4)
+ 1. File server registration with KDC https://www.youtube.com/watch?v=9eRtdPKmHqA
+ 2. Distributed Node Registration and access to file server https://www.youtube.com/watch?v=-n4DVfnBX3o
+ 3. File block replication https://www.youtube.com/watch?v=Phd4fjswFX4
 # Components:
  1. **Master :** Will contain metadata
  2. **fileServer :** Will contain actual file data
